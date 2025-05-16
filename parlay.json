@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Dylan Crews",
+    "type": "SB",
+    "line": 27.5,
+    "player_id": 686611
+  },
+  {
+    "name": "Fernando Tatis Jr.",
+    "type": "H",
+    "line": 147.5,
+    "player_id": 665487
+  },
+  {
+    "name": "Kevin Gausman",
+    "type": "ERA",
+    "line": 3.65,
+    "player_id": 592332
+  },
+  {
+    "name": "Elly De La Cruz",
+    "type": "HR",
+    "line": 24.5,
+    "player_id": 682829
+  },
+  {
+    "name": "James Wood",
+    "type": "HR",
+    "line": 19.5,
+    "player_id": 695578
+  },
+  {
+    "name": "Riley Greene",
+    "type": "HR",
+    "line": 21.5,
+    "player_id": 682985
+  }
+]
