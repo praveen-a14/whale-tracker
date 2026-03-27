@@ -1,38 +1,44 @@
 [
   {
-    "name": "Dylan Crews",
-    "type": "SB",
-    "line": 27.5,
-    "player_id": 686611
+    "name": "Aaron Judge",
+    "type": "HR",
+    "line": 49.5,
+    "direction": "OVER",
+    "player_id": 592450
   },
   {
-    "name": "Fernando Tatis Jr.",
-    "type": "H",
-    "line": 147.5,
-    "player_id": 665487
-  },
-  {
-    "name": "Kevin Gausman",
+    "name": "Tarik Skubal",
     "type": "ERA",
-    "line": 3.65,
-    "player_id": 592332
+    "line": 2.72,
+    "direction": "UNDER",
+    "player_id": 669373
   },
   {
-    "name": "Elly De La Cruz",
-    "type": "HR",
-    "line": 24.5,
-    "player_id": 682829
-  },
-  {
-    "name": "James Wood",
-    "type": "HR",
-    "line": 19.5,
-    "player_id": 695578
-  },
-  {
-    "name": "Riley Greene",
+    "name": "Roman Anthony",
     "type": "HR",
     "line": 21.5,
-    "player_id": 682985
+    "direction": "OVER",
+    "player_id": 701350
+  },
+  {
+    "name": "Cristopher Sanchez",
+    "type": "SO",
+    "line": 180.5,
+    "direction": "OVER",
+    "player_id": 650911
+  },
+  {
+    "name": "Shohei Ohtani",
+    "type": "HR",
+    "line": 48.5,
+    "direction": "OVER",
+    "player_id": 660271
+  },
+  {
+    "name": "Ketel Marte",
+    "type": "H",
+    "line": 140.5,
+    "direction": "OVER",
+    "player_id": 606466
   }
 ]
