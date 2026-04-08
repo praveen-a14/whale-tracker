@@ -136,6 +136,34 @@ def format_margin(stat_type: str, margin: float) -> str:
     return f"{margin:+.{precision}f} vs line"
 
 
+def project_on_pace(
+    stat_type: str, actual: float, season_progress_ratio: float
+) -> Optional[float]:
+    # ERA is already a season rate stat, so current value is the best pace estimate.
+    if stat_type == "ERA":
+        return actual
+
+    if season_progress_ratio <= 0:
+        return None
+
+    return actual / season_progress_ratio
+
+
+def format_on_pace(stat_type: str, value: Optional[float]) -> str:
+    if value is None:
+        return "N/A"
+    if stat_type == "ERA":
+        return f"{value:.2f}"
+    return f"{value:.1f}"
+
+
+def on_pace_color(on_pace: Optional[float], line: float, direction: str) -> str:
+    if on_pace is None:
+        return "#6b7280"
+    status, _ = grade_pick(on_pace, line, direction)
+    return "#16a34a" if status in ("Hit", "Push") else "#dc2626"
+
+
 def progress_to_line(actual: float, line: float, direction: str) -> float:
     if line <= 0:
         return 0.0
@@ -171,6 +199,7 @@ for i, pick in enumerate(picks):
                     "Player": pick.name,
                     "Pick": f"{pick.direction} {format_line(pick.stat_type, pick.line)} {STAT_LABELS.get(pick.stat_type, pick.stat_type)}",
                     "Actual": "N/A",
+                    "On Pace": "N/A",
                     "Status": "No Data",
                 }
             )
@@ -184,12 +213,14 @@ for i, pick in enumerate(picks):
                     "Player": pick.name,
                     "Pick": f"{pick.direction} {format_line(pick.stat_type, pick.line)} {STAT_LABELS.get(pick.stat_type, pick.stat_type)}",
                     "Actual": "N/A",
+                    "On Pace": "N/A",
                     "Status": "No Data",
                 }
             )
             continue
 
         status, margin = grade_pick(actual, pick.line, pick.direction)
+        on_pace = project_on_pace(pick.stat_type, actual, progress)
         emoji = "🟢" if status == "Hit" else "🟡" if status == "Push" else "🔴"
 
         st.subheader(f"{emoji} {pick.name}")
@@ -201,6 +232,11 @@ for i, pick in enumerate(picks):
             value=format_stat_value(pick.stat_type, actual),
             delta=format_margin(pick.stat_type, margin),
         )
+        pace_color = on_pace_color(on_pace, pick.line, pick.direction)
+        st.markdown(
+            f"<span style='color:{pace_color}; font-size:0.9rem;'>On pace for: {format_on_pace(pick.stat_type, on_pace)}</span>",
+            unsafe_allow_html=True,
+        )
 
         st.progress(progress_to_line(actual, pick.line, pick.direction))
 
@@ -209,6 +245,7 @@ for i, pick in enumerate(picks):
                 "Player": pick.name,
                 "Pick": f"{pick.direction} {format_line(pick.stat_type, pick.line)} {STAT_LABELS.get(pick.stat_type, pick.stat_type)}",
                 "Actual": format_stat_value(pick.stat_type, actual),
+                "On Pace": format_on_pace(pick.stat_type, on_pace),
                 "Status": status,
             }
         )
